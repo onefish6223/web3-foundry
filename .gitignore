@@ -1,13 +1,16 @@
+.vscode
 lib/
 .DS_Store
+bin/
 # Compiler files
 cache/
 out/
 
 # Ignores development broadcast logs
-!/broadcast
+broadcast/
 /broadcast/*/31337/
 /broadcast/**/dry-run/
+deployments/
 
 # Docs
 docs/
