@@ -6,7 +6,7 @@ import {Counter} from "../src/Counter.sol";
 
 contract CounterScript is BaseScript {
     function run() public broadcaster {
-        Counuter counter = new Counter();
+        Counter counter = new Counter();
         console.log("Counter deployed on %s", address(counter));
         saveContract("Counter", address(counter));
     }

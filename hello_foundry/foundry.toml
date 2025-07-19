@@ -4,17 +4,21 @@ out = "out"
 libs = ["lib"]
 
 solc-version = "0.8.29"
-# optimizer = true
+optimizer = true
 # 优化器: 运行次数 预期合约在部署后会被调用的次数 最大2^32-1
-# optimizer-runs = 200
+optimizer-runs = 100
 # 使用中间表示
 # via_ir = true
+#ffi 是 Foundry 的配置选项，表示 启用 FFI（Foreign Function Interface）功能，它允许你在脚本或测试中调用 外部命令行程序（如 shell 脚本、Node.js、curl 等）
+ffi = true
+evm_version = "cancun"
 
+#dotenv 是一种 环境变量加载机制，允许你将敏感数据（如私钥、API Key）写在 .env 文件中，然后自动加载到你的程序或命令行环境中
+dotenv = ".env"
 
 fs_permissions = [
     { access = "write", path = "./deployments" }
 ]
-
 
 [rpc_endpoints]
 sepolia = "${SEPOLIA_RPC_URL}"
