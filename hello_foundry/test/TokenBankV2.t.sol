@@ -96,7 +96,7 @@ contract TokenBankV2Test is Test {
         vm.stopPrank();
     }
 
-    function testDepositUpdatesBalance() public {
+    function test_DepositUpdatesBalance() public {
         /**
         断言检查存款前后用户在 Bank 合约中的存款额更新是否正确
         */
@@ -111,7 +111,7 @@ contract TokenBankV2Test is Test {
         vm.stopPrank();
     }
 
-    function testTop3Users() public {
+    function test_Top3Users() public {
         /**
         检查存款金额的前 3 名用户是否正确，分别检查有1个、2个、3个、4 个用户， 
         以及同一个用户多次存款的情况。
@@ -160,7 +160,7 @@ contract TokenBankV2Test is Test {
         assertEq(daddr3, user2);
     }
 
-    function testOnlyAdminCanWithdraw() public {
+    function test_OnlyAdminCanWithdraw() public {
         //检查只有管理员可取款，其他人不可以取款。
         // admin存款
         vm.startPrank(admin);

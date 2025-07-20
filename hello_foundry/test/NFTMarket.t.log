@@ -1,0 +1,20 @@
+mxli@192 hello_foundry % forge test test/NFTMarket.t.sol -vv
+[⠊] Compiling...
+[⠒] Compiling 1 files with Solc 0.8.29
+[⠑] Solc 0.8.29 finished in 568.06ms
+Compiler run successful!
+
+Ran 10 tests for test/NFTMarket.t.sol:NFTMarketTest
+[PASS] invariantMarketNeverHoldToken() (runs: 256, calls: 128000, reverts: 93114)
+[PASS] testBuyNFTFailOverPay() (gas: 153713)
+[PASS] testBuyNFTFailRepeatBuy() (gas: 154070)
+[PASS] testBuyNFTFailSelfBuy() (gas: 95805)
+[PASS] testBuyNFTFailUnderPay() (gas: 125868)
+[PASS] testBuyNFTSuccess() (gas: 156243)
+[PASS] testFuzzListAndBuy(uint256,address) (runs: 256, μ: 174255, ~: 174287)
+[PASS] testListNFTFailAlreadyListed() (gas: 95744)
+[PASS] testListNFTFailNotOwner() (gas: 23686)
+[PASS] testListNFTSuccess() (gas: 96905)
+Suite result: ok. 10 passed; 0 failed; 0 skipped; finished in 2.69s (2.71s CPU time)
+
+Ran 1 test suite in 2.69s (2.69s CPU time): 10 tests passed, 0 failed, 0 skipped (10 total tests)
