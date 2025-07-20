@@ -1,0 +1,11 @@
+mxli@192 hello_foundry % forge test test/TokenBankV2.t.sol -vv
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Ran 3 tests for test/TokenBankV2.t.sol:TokenBankV2Test
+[PASS] testDepositUpdatesBalance() (gas: 200946)
+[PASS] testOnlyAdminCanWithdraw() (gas: 145264)
+[PASS] testTop3Users() (gas: 362116)
+Suite result: ok. 3 passed; 0 failed; 0 skipped; finished in 2.19ms (1.29ms CPU time)
+
+Ran 1 test suite in 187.50ms (2.19ms CPU time): 3 tests passed, 0 failed, 0 skipped (3 total tests)
