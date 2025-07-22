@@ -1,4 +1,5 @@
 .vscode
+.wake/
 lib/
 .DS_Store
 bin/
@@ -17,3 +18,4 @@ docs/
 
 # Dotenv file
 .env
+.gitignore
