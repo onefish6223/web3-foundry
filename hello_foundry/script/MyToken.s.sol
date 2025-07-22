@@ -6,7 +6,7 @@ import {MyToken} from "../src/MyToken.sol";
 
 contract MyTokenScript is Script {
     function run() public {
-        uint256 deployerKey = vm.envUint("PRIVATE_KEY");
+        uint256 deployerKey = vm.envUint("LOCAL_PRIVATE_KEY");
         vm.startBroadcast(deployerKey);
         new MyToken("HelloToken", "HTK");
         vm.stopBroadcast();

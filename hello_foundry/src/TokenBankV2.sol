@@ -87,6 +87,7 @@ contract TokenBank {
         require(amount > 0, "Amount must be greater than 0");
 
         // 将代币从用户转移到合约
+        // wake-disable
         bool success = token.transferFrom(msg.sender, address(this), amount);
         require(success, "Transfer failed");
 

@@ -64,6 +64,7 @@ contract NFTMarket {
         );
 
         // 转账
+        // wake-disable
         bool ok = IERC20(l.erc20).transferFrom(msg.sender, l.seller, l.price);
         require(ok, "ERC20 transfer failed");
 
