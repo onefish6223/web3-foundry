@@ -1,0 +1,378 @@
+mxli@MxdeMacBook-Pro hello_foundry % forge test MyTokenBankV4.t.sol -vvvv
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Ran 15 tests for test/permit/MyTokenBankV4.t.sol:MyTokenBankTest
+[PASS] testDepositEth() (gas: 71025)
+Traces:
+  [73825] MyTokenBankTest::testDepositEth()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, false, false, true)
+    │   └─ ← [Return]
+    ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [495] MyTokenBank::getEthBalance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [275] MyTokenBank::getTotalEthBalance() [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testDepositEthZeroAmount() (gas: 16265)
+Traces:
+  [16265] MyTokenBankTest::testDepositEthZeroAmount()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  )The deposit amount must be greater than 0)
+    │   └─ ← [Return]
+    ├─ [5357] MyTokenBank::depositEth()
+    │   └─ ← [Revert] The deposit amount must be greater than 0
+    └─ ← [Return]
+
+[PASS] testDepositToken() (gas: 86316)
+Traces:
+  [109016] MyTokenBankTest::testDepositToken()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [24325] TestERC20::approve(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return]
+    ├─ emit TokenDeposited(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    ├─ [61545] MyTokenBank::depositToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   ├─ [746] TestERC20::allowance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [30223] TestERC20::transferFrom(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenDeposited(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [515] TestERC20::balanceOf(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testDepositWithPermit() (gas: 113300)
+Traces:
+  [136000] MyTokenBankTest::testDepositWithPermit()
+    ├─ [374] TestERC20Permit::DOMAIN_SEPARATOR() [staticcall]
+    │   └─ ← [Return] 0xca23e8694e42c5db1ce42f8ab767635bebfe8339c747bbaa21a956e570e1c69e
+    ├─ [2560] TestERC20Permit::nonces(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [0] VM::sign("<pk>", 0x229f0421cd682dbfc00240c20bd9c9e98848c5c17e01a36b4d79bb4aa173d468) [staticcall]
+    │   └─ ← [Return] 27, 0x55bb5923b1ffd419dcb920071c932a6867c05261584a53e0da6d47b41662407a, 0x0903f0b34afabc1cc0e619c3056d61a861d283bb44e4feb897bffdddf61418a1
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [109863] MyTokenBank::depositWithPermit(TestERC20Permit: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 500000000000000000000 [5e20], 86401 [8.64e4], 27, 0x55bb5923b1ffd419dcb920071c932a6867c05261584a53e0da6d47b41662407a, 0x0903f0b34afabc1cc0e619c3056d61a861d283bb44e4feb897bffdddf61418a1)
+    │   ├─ [48931] TestERC20Permit::permit(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20], 86401 [8.64e4], 27, 0x55bb5923b1ffd419dcb920071c932a6867c05261584a53e0da6d47b41662407a, 0x0903f0b34afabc1cc0e619c3056d61a861d283bb44e4feb897bffdddf61418a1)
+    │   │   ├─ [3000] PRECOMPILES::ecrecover(0x229f0421cd682dbfc00240c20bd9c9e98848c5c17e01a36b4d79bb4aa173d468, 27, 38777607748459715965882995743300656287863852485031742811393975066066445025402, 4077777431293671706769016958870283142203843671829579748368333423794516662433) [staticcall]
+    │   │   │   └─ ← [Return] 0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266
+    │   │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Stop]
+    │   ├─ [30223] TestERC20Permit::transferFrom(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenDeposited(token: TestERC20Permit: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC20Permit: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [537] TestERC20Permit::balanceOf(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testERC1363Deposit() (gas: 103903)
+Traces:
+  [103903] MyTokenBankTest::testERC1363Deposit()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [24394] TestERC1363::approve(TestERC1363: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 500000000000000000000 [5e20])
+    │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: TestERC1363: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], value: 500000000000000000000 [5e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return]
+    ├─ emit TokenDeposited(token: TestERC1363: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    ├─ [58809] TestERC1363::transferAndCall(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20], 0x)
+    │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   ├─ [25387] MyTokenBank::onTransferReceived(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, 500000000000000000000 [5e20], 0x)
+    │   │   ├─ [238] TestERC1363::supportsInterface(0xb0202a11) [staticcall]
+    │   │   │   └─ ← [Return] true
+    │   │   ├─ emit TokenDeposited(token: TestERC1363: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] 0x88a7ca5c
+    │   └─ ← [Return] true
+    ├─ [0] VM::assertEq(true, true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC1363: [0x5991A2dF15A8F6A256D3Ec51E99254Cd3fb576A9], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [603] TestERC1363::balanceOf(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testRevertDepositTokenZeroAmount() (gas: 19241)
+Traces:
+  [19241] MyTokenBankTest::testRevertDepositTokenZeroAmount()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  *The deposit amount must be greater than 0.)
+    │   └─ ← [Return]
+    ├─ [5521] MyTokenBank::depositToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0)
+    │   └─ ← [Revert] The deposit amount must be greater than 0.
+    └─ ← [Return]
+
+[PASS] testRevertEthTransferToZero() (gas: 71417)
+Traces:
+  [74217] MyTokenBankTest::testRevertEthTransferToZero()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  !The receiving address cannot be 0)
+    │   └─ ← [Return]
+    ├─ [3651] MyTokenBank::transferEth(0x0000000000000000000000000000000000000000, 500000000000000000 [5e17])
+    │   └─ ← [Revert] The receiving address cannot be 0
+    └─ ← [Return]
+
+[PASS] testRevertTransferTokenToSelf() (gas: 86340)
+Traces:
+  [109040] MyTokenBankTest::testRevertTransferTokenToSelf()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [24325] TestERC20::approve(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [61545] MyTokenBank::depositToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   ├─ [746] TestERC20::allowance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [30223] TestERC20::transferFrom(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenDeposited(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  &You cannot transfer money to yourself.)
+    │   └─ ← [Return]
+    ├─ [3865] MyTokenBank::transferToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, 100)
+    │   └─ ← [Revert] You cannot transfer money to yourself.
+    └─ ← [Return]
+
+[PASS] testRevertWithdrawTokenInsufficient() (gas: 21782)
+Traces:
+  [21782] MyTokenBankTest::testRevertWithdrawTokenInsufficient()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient balance)
+    │   └─ ← [Return]
+    ├─ [7906] MyTokenBank::withdrawToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100)
+    │   └─ ← [Revert] Insufficient balance
+    └─ ← [Return]
+
+[PASS] testTransferEth() (gas: 101419)
+Traces:
+  [107019] MyTokenBankTest::testTransferEth()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit EthTransferred(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: SHA-256: [0x0000000000000000000000000000000000000002], amount: 500000000000000000 [5e17])
+    ├─ [28324] MyTokenBank::transferEth(SHA-256: [0x0000000000000000000000000000000000000002], 500000000000000000 [5e17])
+    │   ├─ emit EthTransferred(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: SHA-256: [0x0000000000000000000000000000000000000002], amount: 500000000000000000 [5e17])
+    │   └─ ← [Return]
+    ├─ [495] MyTokenBank::getEthBalance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000 [5e17]
+    ├─ [0] VM::assertEq(500000000000000000 [5e17], 500000000000000000 [5e17]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [495] MyTokenBank::getEthBalance(SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return] 500000000000000000 [5e17]
+    ├─ [0] VM::assertEq(500000000000000000 [5e17], 500000000000000000 [5e17]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [275] MyTokenBank::getTotalEthBalance() [staticcall]
+    │   └─ ← [Return] 1000000000000000000 [1e18]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testTransferEthToSelf() (gas: 71633)
+Traces:
+  [74433] MyTokenBankTest::testTransferEthToSelf()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  &You cannot transfer money to yourself.)
+    │   └─ ← [Return]
+    ├─ [3702] MyTokenBank::transferEth(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, 500000000000000000 [5e17])
+    │   └─ ← [Revert] You cannot transfer money to yourself.
+    └─ ← [Return]
+
+[PASS] testTransferToken() (gas: 118230)
+Traces:
+  [143730] MyTokenBankTest::testTransferToken()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [24325] TestERC20::approve(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [61545] MyTokenBank::depositToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   ├─ [746] TestERC20::allowance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [30223] TestERC20::transferFrom(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenDeposited(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit TokenTransferred(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: SHA-256: [0x0000000000000000000000000000000000000002], amount: 250000000000000000000 [2.5e20])
+    ├─ [29081] MyTokenBank::transferToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], SHA-256: [0x0000000000000000000000000000000000000002], 250000000000000000000 [2.5e20])
+    │   ├─ emit TokenTransferred(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: SHA-256: [0x0000000000000000000000000000000000000002], amount: 250000000000000000000 [2.5e20])
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 250000000000000000000 [2.5e20]
+    ├─ [0] VM::assertEq(250000000000000000000 [2.5e20], 250000000000000000000 [2.5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return] 250000000000000000000 [2.5e20]
+    ├─ [0] VM::assertEq(250000000000000000000 [2.5e20], 250000000000000000000 [2.5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [515] TestERC20::balanceOf(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::assertEq(500000000000000000000 [5e20], 500000000000000000000 [5e20]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testWithdrawEth() (gas: 82917)
+Traces:
+  [88517] MyTokenBankTest::testWithdrawEth()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return]
+    ├─ emit EthWithdrawn(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000 [5e17])
+    ├─ [12730] MyTokenBank::withdrawEth(500000000000000000 [5e17])
+    │   ├─ emit EthWithdrawn(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000 [5e17])
+    │   ├─ [0] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266::fallback{value: 500000000000000000}()
+    │   │   └─ ← [Stop]
+    │   └─ ← [Return]
+    ├─ [495] MyTokenBank::getEthBalance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000 [5e17]
+    ├─ [0] VM::assertEq(500000000000000000 [5e17], 500000000000000000 [5e17]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [275] MyTokenBank::getTotalEthBalance() [staticcall]
+    │   └─ ← [Return] 500000000000000000 [5e17]
+    ├─ [0] VM::assertEq(500000000000000000 [5e17], 500000000000000000 [5e17]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(9500000000000000000 [9.5e18], 9500000000000000000 [9.5e18]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testWithdrawEthInsufficientBalance() (gas: 71239)
+Traces:
+  [74039] MyTokenBankTest::testWithdrawEthInsufficientBalance()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [51163] MyTokenBank::depositEth{value: 1000000000000000000}()
+    │   ├─ emit EthDeposited(user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 1000000000000000000 [1e18])
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Insufficient balance)
+    │   └─ ← [Return]
+    ├─ [3706] MyTokenBank::withdrawEth(2000000000000000000 [2e18])
+    │   └─ ← [Revert] Insufficient balance
+    └─ ← [Return]
+
+[PASS] testWithdrawToken() (gas: 96992)
+Traces:
+  [122492] MyTokenBankTest::testWithdrawToken()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [24325] TestERC20::approve(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   ├─ emit Approval(owner: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, spender: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   └─ ← [Return] true
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [61545] MyTokenBank::depositToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 500000000000000000000 [5e20])
+    │   ├─ [746] TestERC20::allowance(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] 500000000000000000000 [5e20]
+    │   ├─ [30223] TestERC20::transferFrom(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], 500000000000000000000 [5e20])
+    │   │   ├─ emit Transfer(from: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, to: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], value: 500000000000000000000 [5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenDeposited(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 500000000000000000000 [5e20])
+    │   └─ ← [Return]
+    ├─ [515] TestERC20::balanceOf(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 500000000000000000000 [5e20]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, false, true)
+    │   └─ ← [Return]
+    ├─ emit TokenWithdrawn(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 250000000000000000000 [2.5e20])
+    ├─ [9539] MyTokenBank::withdrawToken(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 250000000000000000000 [2.5e20])
+    │   ├─ [2908] TestERC20::transfer(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, 250000000000000000000 [2.5e20])
+    │   │   ├─ emit Transfer(from: MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], to: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, value: 250000000000000000000 [2.5e20])
+    │   │   └─ ← [Return] true
+    │   ├─ emit TokenWithdrawn(token: TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], user: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, amount: 250000000000000000000 [2.5e20])
+    │   └─ ← [Return]
+    ├─ [757] MyTokenBank::getTokenBalance(TestERC20: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 250000000000000000000 [2.5e20]
+    ├─ [0] VM::assertEq(250000000000000000000 [2.5e20], 250000000000000000000 [2.5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [515] TestERC20::balanceOf(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266) [staticcall]
+    │   └─ ← [Return] 750000000000000000000 [7.5e20]
+    ├─ [0] VM::assertEq(750000000000000000000 [7.5e20], 750000000000000000000 [7.5e20]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [515] TestERC20::balanceOf(MyTokenBank: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   └─ ← [Return] 250000000000000000000 [2.5e20]
+    ├─ [0] VM::assertEq(250000000000000000000 [2.5e20], 250000000000000000000 [2.5e20]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+Suite result: ok. 15 passed; 0 failed; 0 skipped; finished in 2.78ms (13.92ms CPU time)
+
+Ran 1 test suite in 189.82ms (2.78ms CPU time): 15 tests passed, 0 failed, 0 skipped (15 total tests)
+mxli@MxdeMacBook-Pro hello_foundry % \

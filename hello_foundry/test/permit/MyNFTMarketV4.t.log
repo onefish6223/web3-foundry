@@ -1,0 +1,358 @@
+mxli@MxdeMacBook-Pro hello_foundry % forge test MyNFTMarketV4.t.sol -vvvv
+[⠊] Compiling...
+No files changed, compilation skipped
+
+Ran 12 tests for test/permit/MyNFTMarketV4.t.sol:NFTMarketTest
+[PASS] testBuy1155NFT() (gas: 301320)
+Traces:
+  [306920] NFTMarketTest::testBuy1155NFT()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203433] NFTMarket::create1155Listing(TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 200, 1000000000000000000 [1e18], 5, false)
+    │   ├─ [2479] TestERC1155::balanceOf(ECRecover: [0x0000000000000000000000000000000000000001], 200) [staticcall]
+    │   │   └─ ← [Return] 5
+    │   ├─ [2755] TestERC1155::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 200, tokenType: 1, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 5, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [72797] NFTMarket::buyNFT{value: 2000000000000000000}(1, 2)
+    │   ├─ [30294] TestERC1155::safeTransferFrom(ECRecover: [0x0000000000000000000000000000000000000001], SHA-256: [0x0000000000000000000000000000000000000002], 200, 2, 0x)
+    │   │   ├─ emit TransferSingle(operator: NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f], from: ECRecover: [0x0000000000000000000000000000000000000001], to: SHA-256: [0x0000000000000000000000000000000000000002], id: 200, value: 2)
+    │   │   └─ ← [Stop]
+    │   ├─ [3000] ECRecover::fallback{value: 2000000000000000000}()
+    │   │   └─ ← [Return]
+    │   ├─ emit NFTPurchased(listingId: 1, nftContract: TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 200, tokenType: 1, seller: ECRecover: [0x0000000000000000000000000000000000000001], buyer: SHA-256: [0x0000000000000000000000000000000000000002], price: 1000000000000000000 [1e18], amount: 2, platformFee: 0, isPermitBuy: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [479] TestERC1155::balanceOf(SHA-256: [0x0000000000000000000000000000000000000002], 200) [staticcall]
+    │   └─ ← [Return] 2
+    ├─ [0] VM::assertEq(2, 2) [staticcall]
+    │   └─ ← [Return]
+    ├─ [479] TestERC1155::balanceOf(ECRecover: [0x0000000000000000000000000000000000000001], 200) [staticcall]
+    │   └─ ← [Return] 3
+    ├─ [0] VM::assertEq(3, 3) [staticcall]
+    │   └─ ← [Return]
+    ├─ [2572] NFTMarket::getNFTListing(TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 200) [staticcall]
+    │   └─ ← [Return] Listing({ id: 1, nftContract: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, tokenId: 200, tokenType: 1, seller: 0x0000000000000000000000000000000000000001, buyer: 0x0000000000000000000000000000000000000002, price: 1000000000000000000 [1e18], amount: 3, active: true, requiresWhitelist: false })
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(3, 3) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testBuy721NFT() (gas: 277017)
+Traces:
+  [327217] NFTMarketTest::testBuy721NFT()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [2572] NFTMarket::getNFTListing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100) [staticcall]
+    │   └─ ← [Return] Listing({ id: 1, nftContract: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, tokenId: 100, tokenType: 0, seller: 0x0000000000000000000000000000000000000001, buyer: 0x0000000000000000000000000000000000000000, price: 1000000000000000000 [1e18], amount: 1, active: true, requiresWhitelist: false })
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit NFTPurchased(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], buyer: SHA-256: [0x0000000000000000000000000000000000000002], price: 1000000000000000000 [1e18], amount: 1, platformFee: 0, isPermitBuy: false, timestamp: 1)
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [78657] NFTMarket::buyNFT{value: 1000000000000000000}(1, 1)
+    │   ├─ [35629] TestERC721::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], SHA-256: [0x0000000000000000000000000000000000000002], 100)
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: SHA-256: [0x0000000000000000000000000000000000000002], tokenId: 100)
+    │   │   └─ ← [Stop]
+    │   ├─ [3000] ECRecover::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Return]
+    │   ├─ emit NFTPurchased(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], buyer: SHA-256: [0x0000000000000000000000000000000000000002], price: 1000000000000000000 [1e18], amount: 1, platformFee: 0, isPermitBuy: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [577] TestERC721::ownerOf(100) [staticcall]
+    │   └─ ← [Return] SHA-256: [0x0000000000000000000000000000000000000002]
+    ├─ [0] VM::assertEq(SHA-256: [0x0000000000000000000000000000000000000002], SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(11000000000000000000 [1.1e19], 11000000000000000000 [1.1e19]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [7037] NFTMarket::getUserListings(ECRecover: [0x0000000000000000000000000000000000000001]) [staticcall]
+    │   └─ ← [Return] [Listing({ id: 1, nftContract: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, tokenId: 100, tokenType: 0, seller: 0x0000000000000000000000000000000000000001, buyer: 0x0000000000000000000000000000000000000002, price: 1000000000000000000 [1e18], amount: 1, active: false, requiresWhitelist: false })]
+    ├─ [0] VM::assertFalse(false) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(SHA-256: [0x0000000000000000000000000000000000000002], SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testCancelListing() (gas: 204489)
+Traces:
+  [249889] NFTMarketTest::testCancelListing()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit ListingCancelled(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], timestamp: 1)
+    ├─ [7544] NFTMarket::cancelListing(1)
+    │   ├─ emit ListingCancelled(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [18572] NFTMarket::getNFTListing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100) [staticcall]
+    │   └─ ← [Return] Listing({ id: 0, nftContract: 0x0000000000000000000000000000000000000000, tokenId: 0, tokenType: 0, seller: 0x0000000000000000000000000000000000000000, buyer: 0x0000000000000000000000000000000000000000, price: 0, amount: 0, active: false, requiresWhitelist: false })
+    ├─ [0] VM::assertFalse(false) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testCreate1155Listing() (gas: 223318)
+Traces:
+  [226118] NFTMarketTest::testCreate1155Listing()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit ListingCreated(listingId: 1, nftContract: TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 200, tokenType: 1, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 5, requiresWhitelist: false, timestamp: 1)
+    ├─ [203433] NFTMarket::create1155Listing(TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 200, 1000000000000000000 [1e18], 5, false)
+    │   ├─ [2479] TestERC1155::balanceOf(ECRecover: [0x0000000000000000000000000000000000000001], 200) [staticcall]
+    │   │   └─ ← [Return] 5
+    │   ├─ [2755] TestERC1155::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], tokenId: 200, tokenType: 1, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 5, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [2572] NFTMarket::getNFTListing(TestERC1155: [0xF62849F9A0B5Bf2913b396098F7c7019b51A820a], 200) [staticcall]
+    │   └─ ← [Return] Listing({ id: 1, nftContract: 0xF62849F9A0B5Bf2913b396098F7c7019b51A820a, tokenId: 200, tokenType: 1, seller: 0x0000000000000000000000000000000000000001, buyer: 0x0000000000000000000000000000000000000000, price: 1000000000000000000 [1e18], amount: 5, active: true, requiresWhitelist: false })
+    ├─ [0] VM::assertEq(1, 1) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(5, 5) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testCreate721Listing() (gas: 224290)
+Traces:
+  [227090] NFTMarketTest::testCreate721Listing()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectEmit(true, true, true, true)
+    │   └─ ← [Return]
+    ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [2572] NFTMarket::getNFTListing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100) [staticcall]
+    │   └─ ← [Return] Listing({ id: 1, nftContract: 0x2e234DAe75C793f67A35089C9d99245E1C58470b, tokenId: 100, tokenType: 0, seller: 0x0000000000000000000000000000000000000001, buyer: 0x0000000000000000000000000000000000000000, price: 1000000000000000000 [1e18], amount: 1, active: true, requiresWhitelist: false })
+    ├─ [0] VM::assertEq(1, 1) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(ECRecover: [0x0000000000000000000000000000000000000001], ECRecover: [0x0000000000000000000000000000000000000001]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(1000000000000000000 [1e18], 1000000000000000000 [1e18]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertTrue(true) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testPermitBuyWithWhitelist() (gas: 334139)
+Traces:
+  [364439] NFTMarketTest::testPermitBuyWithWhitelist()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], true)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: true, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [2605] NFTMarket::nonces(SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return] 0
+    ├─ [238] NFTMarket::PERMIT_TYPEHASH() [staticcall]
+    │   └─ ← [Return] 0xf75ee1322006ff95a2bfcb4a9282e1cb17bcf5407b19554adf4c154c00418d94
+    ├─ [522] NFTMarket::hashTypedDataV4(0x7418f0da6949a2a9eb060eeb48859d1aa862ac1b1aaf1a4dbb6096678181c591) [staticcall]
+    │   └─ ← [Return] 0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a
+    ├─ [0] VM::sign("<pk>", 0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a) [staticcall]
+    │   └─ ← [Return] 28, 0x3e524307c180021d08ce6bc16727a48572e9ec3b609d47d42ff83e7f26f82118, 0x6e3f798e2996549db5b4dcd77a533068b8836c8ccf0d4bf6e5b871e00b80e40c
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [127851] NFTMarket::permitBuy{value: 1000000000000000000}(1, 1, 86401 [8.64e4], 28, 0x3e524307c180021d08ce6bc16727a48572e9ec3b609d47d42ff83e7f26f82118, 0x6e3f798e2996549db5b4dcd77a533068b8836c8ccf0d4bf6e5b871e00b80e40c)
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a, 28, 28188740697577137065993950113836889739467736788168760763202423456095717040408, 49866563653240375679505046191606117014452587464175061418299491265034022085644) [staticcall]
+    │   │   └─ ← [Return] 0x000000000000000000000000f39fd6e51aad88f6f4ce6ab8827279cfffb92266
+    │   ├─ [35629] TestERC721::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], SHA-256: [0x0000000000000000000000000000000000000002], 100)
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: SHA-256: [0x0000000000000000000000000000000000000002], tokenId: 100)
+    │   │   └─ ← [Stop]
+    │   ├─ [3000] ECRecover::fallback{value: 1000000000000000000}()
+    │   │   └─ ← [Return]
+    │   ├─ emit NFTPurchased(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], buyer: SHA-256: [0x0000000000000000000000000000000000000002], price: 1000000000000000000 [1e18], amount: 1, platformFee: 0, isPermitBuy: true, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [577] TestERC721::ownerOf(100) [staticcall]
+    │   └─ ← [Return] SHA-256: [0x0000000000000000000000000000000000000002]
+    ├─ [0] VM::assertEq(SHA-256: [0x0000000000000000000000000000000000000002], SHA-256: [0x0000000000000000000000000000000000000002]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testPlatformFee() (gas: 304169)
+Traces:
+  [354369] NFTMarketTest::testPlatformFee()
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [25955] NFTMarket::setPlatformFeePercentage(200)
+    │   ├─ emit PlatformFeeUpdated(newFeePercentage: 200, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   └─ ← [Return]
+    ├─ [7258] NFTMarket::setFeeReceiver(0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266)
+    │   ├─ emit FeeReceiverUpdated(newFeeReceiver: 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [629] NFTMarket::feeReceiver() [staticcall]
+    │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [83680] NFTMarket::buyNFT{value: 1000000000000000000}(1, 1)
+    │   ├─ [35629] TestERC721::transferFrom(ECRecover: [0x0000000000000000000000000000000000000001], SHA-256: [0x0000000000000000000000000000000000000002], 100)
+    │   │   ├─ emit Transfer(from: ECRecover: [0x0000000000000000000000000000000000000001], to: SHA-256: [0x0000000000000000000000000000000000000002], tokenId: 100)
+    │   │   └─ ← [Stop]
+    │   ├─ [3000] ECRecover::fallback{value: 980000000000000000}()
+    │   │   └─ ← [Return]
+    │   ├─ [0] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266::fallback{value: 20000000000000000}()
+    │   │   └─ ← [Stop]
+    │   ├─ emit NFTPurchased(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], buyer: SHA-256: [0x0000000000000000000000000000000000000002], price: 1000000000000000000 [1e18], amount: 1, platformFee: 20000000000000000 [2e16], isPermitBuy: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [629] NFTMarket::feeReceiver() [staticcall]
+    │   └─ ← [Return] 0xf39Fd6e51aad88F6F4ce6aB8827279cffFb92266
+    ├─ [0] VM::assertEq(10020000000000000000 [1.002e19], 10020000000000000000 [1.002e19]) [staticcall]
+    │   └─ ← [Return]
+    ├─ [0] VM::assertEq(10980000000000000000 [1.098e19], 10980000000000000000 [1.098e19]) [staticcall]
+    │   └─ ← [Return]
+    └─ ← [Return]
+
+[PASS] testRevertIfBuyOwnNFT() (gas: 225881)
+Traces:
+  [228681] NFTMarketTest::testRevertIfBuyOwnNFT()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Cannot purchase your own NFT)
+    │   └─ ← [Return]
+    ├─ [3842] NFTMarket::buyNFT{value: 1000000000000000000}(1, 1)
+    │   └─ ← [Revert] Cannot purchase your own NFT
+    └─ ← [Return]
+
+[PASS] testRevertIfDuplicateListing() (gas: 220039)
+Traces:
+  [222839] NFTMarketTest::testRevertIfDuplicateListing()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  This NFT is already listed)
+    │   └─ ← [Return]
+    ├─ [4107] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   └─ ← [Revert] This NFT is already listed
+    └─ ← [Return]
+
+[PASS] testRevertIfInsufficientPayment() (gas: 228993)
+Traces:
+  [231793] NFTMarketTest::testRevertIfInsufficientPayment()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  )Payment amount does not match total price)
+    │   └─ ← [Return]
+    ├─ [4295] NFTMarket::buyNFT{value: 999999999999999999}(1, 1)
+    │   └─ ← [Revert] Payment amount does not match total price
+    └─ ← [Return]
+
+[PASS] testRevertIfInvalidSignature() (gas: 261673)
+Traces:
+  [264473] NFTMarketTest::testRevertIfInvalidSignature()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], true)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: true, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [238] NFTMarket::PERMIT_TYPEHASH() [staticcall]
+    │   └─ ← [Return] 0xf75ee1322006ff95a2bfcb4a9282e1cb17bcf5407b19554adf4c154c00418d94
+    ├─ [522] NFTMarket::hashTypedDataV4(0x7418f0da6949a2a9eb060eeb48859d1aa862ac1b1aaf1a4dbb6096678181c591) [staticcall]
+    │   └─ ← [Return] 0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a
+    ├─ [0] VM::sign("<pk>", 0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a) [staticcall]
+    │   └─ ← [Return] 28, 0x1caeeccfc764408d9d8e6801aae69b7b910fd076f82c48b0e3c86e6f04ccce96, 0x02afc549e84bdf46788ab754124740b7cb44e30198171c5c8e83a0ee91348359
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  Invalid signature)
+    │   └─ ← [Return]
+    ├─ [32300] NFTMarket::permitBuy{value: 1000000000000000000}(1, 1, 86401 [8.64e4], 28, 0x1caeeccfc764408d9d8e6801aae69b7b910fd076f82c48b0e3c86e6f04ccce96, 0x02afc549e84bdf46788ab754124740b7cb44e30198171c5c8e83a0ee91348359)
+    │   ├─ [3000] PRECOMPILES::ecrecover(0xd1e375d79d807d2f5159155be053e6aac55bd868bf7f5e1521406e01c95b121a, 28, 12973825563448087809982198527786374917302163699980013560507643657643650502294, 1215185570072838144578264003515511305556208503886810700701422215361432159065) [staticcall]
+    │   │   └─ ← [Return] 0x0000000000000000000000006813eb9362372eef6200f3b1dbc3f819671cba69
+    │   └─ ← [Revert] Invalid signature
+    └─ ← [Return]
+
+[PASS] testRevertIfNonOwnerCancel() (gas: 221193)
+Traces:
+  [223993] NFTMarketTest::testRevertIfNonOwnerCancel()
+    ├─ [0] VM::prank(ECRecover: [0x0000000000000000000000000000000000000001])
+    │   └─ ← [Return]
+    ├─ [203758] NFTMarket::create721Listing(TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], 100, 1000000000000000000 [1e18], false)
+    │   ├─ [2577] TestERC721::ownerOf(100) [staticcall]
+    │   │   └─ ← [Return] ECRecover: [0x0000000000000000000000000000000000000001]
+    │   ├─ [2863] TestERC721::isApprovedForAll(ECRecover: [0x0000000000000000000000000000000000000001], NFTMarket: [0x5615dEB798BB3E4dFa0139dFa1b3D433Cc23b72f]) [staticcall]
+    │   │   └─ ← [Return] true
+    │   ├─ emit ListingCreated(listingId: 1, nftContract: TestERC721: [0x2e234DAe75C793f67A35089C9d99245E1C58470b], tokenId: 100, tokenType: 0, seller: ECRecover: [0x0000000000000000000000000000000000000001], price: 1000000000000000000 [1e18], amount: 1, requiresWhitelist: false, timestamp: 1)
+    │   └─ ← [Return]
+    ├─ [0] VM::prank(SHA-256: [0x0000000000000000000000000000000000000002])
+    │   └─ ← [Return]
+    ├─ [0] VM::expectRevert(custom error 0xf28dceb3:  &You are not the seller of this listing)
+    │   └─ ← [Return]
+    ├─ [3738] NFTMarket::cancelListing(1)
+    │   └─ ← [Revert] You are not the seller of this listing
+    └─ ← [Return]
+
+Suite result: ok. 12 passed; 0 failed; 0 skipped; finished in 2.12ms (4.36ms CPU time)
+
+Ran 1 test suite in 190.17ms (2.12ms CPU time): 12 tests passed, 0 failed, 0 skipped (12 total tests)
+mxli@MxdeMacBook-Pro hello_foundry % 

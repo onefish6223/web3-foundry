@@ -88,7 +88,7 @@ contract MyNFTMarket is Ownable {
         // 确保支付的金额 等于NFT的价格
         require(amount == price, "Invalid amount");
         // 从当前合约账户转账代币到卖家
-        paymentToken.transferFrom(address(this), seller, price);
+        paymentToken.transfer(seller, price);
         // 将 NFT 转到买家
         IERC721(nftContract).transferFrom(address(this), sender, tokenId);
 
